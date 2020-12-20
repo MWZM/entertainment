@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        height: 100%;
+        background-color: black;
+    }
+    
+    .box {
+        position: relative;
+        margin: 50px auto;
+        width: 500px;
+        height: 500px;
+    }
+    
+    .second {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+    }
+    
+    .seconds {
+        position: absolute;
+        top: 242px;
+        width: 500px;
+        height: 16px;
+    }
+    
+    .min {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        width: 450px;
+        height: 450px;
+    }
+    
+    .mins {
+        position: absolute;
+        top: 217px;
+        width: 450px;
+        height: 16px;
+    }
+    
+    .hour {
+        position: absolute;
+        top: 57px;
+        left: 60px;
+        width: 390px;
+        height: 390px;
+    }
+    
+    .hours {
+        position: absolute;
+        top: 182px;
+        width: 390px;
+        height: 16px;
+    }
+    
+    .colors {
+        color: palegoldenrod;
+    }
+    
+    .colorm {
+        color: yellowgreen;
+    }
+    
+    .colorh {
+        color: skyblue;
+    }
+    
+    .colord {
+        color: paleturquoise;
+    }
+    
+    .colorM {
+        color: orangered;
+    }
+    
+    .day {
+        position: absolute;
+        left: 100px;
+        top: 100px;
+        width: 300px;
+        height: 300px;
+    }
+    
+    .days {
+        position: absolute;
+        top: 142px;
+        width: 300px;
+        height: 16px;
+    }
+    
+    .montha {
+        position: absolute;
+        top: 135px;
+        left: 150px;
+        width: 200px;
+        height: 200px;
+    }
+    
+    .monthb {
+        position: absolute;
+        top: 108px;
+        width: 200px;
+        height: 16px;
+    }
+    
+    .year {
+        position: absolute;
+        left: 225px;
+        top: 242px;
+        color: purple;
+        font-weight: 700;
+    }
+    
+    .Pointer {
+        width: 250px;
+        height: 1px;
+        background-color: orangered;
+        position: absolute;
+        top: 52%;
+        animation: move 2s;
+    }
+    
+    .yue {
+        position: absolute;
+        color: orangered;
+        top: 292px;
+        left: 602px;
+    }
+    
+    .ri {
+        position: absolute;
+        color: seagreen;
+        top: 291px;
+        left: 554px;
+    }
+    
+    @keyframes move {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 250px;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="box">
+        <div class="second"></div>
+        <div class="min"></div>
+        <div class="hour"></div>
+        <div class="montha"></div>
+        <div class="day"></div>
+        <div class="Pointer"></div>
+        <div class="year"></div>
+    </div>
+    <div class="yue">月</div>
+    <div class="ri">日</div>
+
+    <script>
+        var box = document.querySelector('.second')
+        var mints = document.querySelector('.min')
+        var hour = document.querySelector('.hour')
+        var day = document.querySelector('.day')
+        var montha = document.querySelector('.montha')
+        var year = document.querySelector('.year')
+        second()
+        min()
+        hours()
+        days()
+        month()
+
+
+        //秒针部分
+
+        function second() {
+            for (var i = 0; i < 60; i++) {
+                box.innerHTML += `<div class="seconds colors">${i}</div>`
+            }
+            var sec = document.querySelectorAll('.seconds')
+            for (var j = 0; j < 60; j++) {
+                sec[j].style.transform = 'rotate(' + (j - 1) * -6 + 'deg)';
+            }
+            setInterval(fun, 1000)
+
+            function fun() {
+                var data = new Date()
+                var second = data.getSeconds()
+                box.style.transform = 'rotate(' + (second - 1) * 6 + 'deg)';
+            }
+        }
+
+        //分针部分
+
+        function min() {
+            for (var i = 0; i < 60; i++) {
+                mints.innerHTML += `<div class="mins colorm">${i}</div>`
+            }
+            var mint = document.querySelectorAll('.mins')
+            for (var j = 0; j < 60; j++) {
+                mint[j].style.transform = 'rotate(' + (j + 1) * -6 + 'deg)';
+            }
+            setInterval(fun, 1000)
+
+            function fun() {
+                var data = new Date()
+                var minuter = data.getMinutes()
+                mints.style.transform = 'rotate(' + (minuter + 1) * 6 + 'deg)';
+            }
+        }
+
+        //小时
+        function hours() {
+            for (var i = 0; i < 24; i++) {
+                hour.innerHTML += `<div class="hours colorh">${i}</div>`
+            }
+            var hours = document.querySelectorAll('.hours')
+            for (var j = 0; j < 24; j++) {
+                hours[j].style.transform = 'rotate(' + (j + 1) * -15 + 'deg)';
+            }
+            setInterval(fun, 1000)
+
+            function fun() {
+                var data = new Date()
+                var hours = data.getHours()
+                hour.style.transform = 'rotate(' + (hours + 1) * 15 + 'deg)';
+            }
+        }
+
+        //日
+        function days() {
+            let data = new Date()
+            let month = data.getMonth() + 1
+            if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                for (var i = 0; i < 31; i++) {
+                    day.innerHTML += `<div class="days colord">${i+1}</div>`
+                }
+                var dayb = document.querySelectorAll('.days')
+                for (var j = 0; j < 31; j++) {
+                    dayb[j].style.transform = 'rotate(' + (j + 1) * -11.61 + 'deg)';
+                }
+                setInterval(fun, 1000)
+
+                function fun() {
+                    let data = new Date()
+                    let days = data.getDate()
+                    day.style.transform = 'rotate(' + (days) * 11.61 + 'deg)';
+                }
+            } else if (month == 2) {
+                for (var i = 0; i < 28; i++) {
+                    day.innerHTML += `<div class="days colord">${i+1}</div>`
+                }
+                var dayb = document.querySelectorAll('.days')
+                for (var j = 0; j < 28; j++) {
+                    dayb[j].style.transform = 'rotate(' + (j + 1) * -11.61 + 'deg)';
+                }
+                setInterval(fun, 1000)
+
+                function fun() {
+                    let data = new Date()
+                    let days = data.getDate()
+                    day.style.transform = 'rotate(' + (days + 1) * 11.61 + 'deg)';
+                }
+            } else {
+                for (var i = 0; i < 30; i++) {
+                    day.innerHTML += `<div class="days colord">${i+1}</div>`
+                }
+                var dayb = document.querySelectorAll('.days')
+                for (var j = 0; j < 30; j++) {
+                    dayb[j].style.transform = 'rotate(' + (j + 1) * -11.61 + 'deg)';
+                }
+                setInterval(fun, 1000)
+
+                function fun() {
+                    let data = new Date()
+                    let days = data.getDate()
+                    day.style.transform = 'rotate(' + (days + 1) * 11.61 + 'deg)';
+                }
+            }
+
+
+
+
+        }
+        //月份
+        function month() {
+            for (var i = 0; i < 12; i++) {
+                montha.innerHTML += `<div class="monthb colorM">${i+1}</div>`
+            }
+            var monthc = document.querySelectorAll('.monthb')
+            for (var j = 0; j < 12; j++) {
+                monthc[j].style.transform = 'rotate(' + (j + 1) * -30 + 'deg)';
+            }
+            setInterval(fun, 1000)
+
+            function fun() {
+                var data = new Date()
+                var monthd = data.getMonth() + 1
+                montha.style.transform = 'rotate(' + (hours + 1) * 30 + 'deg)';
+            }
+        }
+        //年
+        let data = new Date()
+        let years = data.getFullYear()
+        year.innerHTML = `${years}年`
+    </script>
+</body>
+
+</html>
